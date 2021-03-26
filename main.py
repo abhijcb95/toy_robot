@@ -30,7 +30,7 @@ def get_session_data(transaction, session_id):
 
         transaction.set(doc_ref, new_robot_data)
 
-        new_robot = robot(new_robot_data["x"], new_robot_data["y"], new_robot_data["direction"])
+    new_robot = robot(new_robot_data["x"], new_robot_data["y"], new_robot_data["direction"])
 
     return new_robot
 
