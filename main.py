@@ -60,7 +60,7 @@ def cli_commands(api_uri=None):
         failure = True
 
     if not failure:
-        get_session_data(transaction, session_id)
+        new_robot = get_session_data(transaction, session_id)
 
     else:
         new_robot = False
