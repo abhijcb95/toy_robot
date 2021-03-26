@@ -60,7 +60,7 @@ def home():
     transaction = db.transaction()
     session = get_session_data(transaction, request.cookies.get('session_id'))
 
-    template = render_template("index.html", session_id=session["session_id"])
+    template = render_template("index.html", session_id = session["session_id"])
     resp = make_response(template)
     resp.set_cookie('session_id', session['session_id'], httponly=True)
     return resp
