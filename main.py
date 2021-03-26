@@ -7,6 +7,14 @@ db = firestore.Client()     # requires GCLOUD_PROJECT environment variable to be
 sessions = db.collection('sessions')
 # storage_client = storage.Client()
 
+try:
+  import googleclouddebugger
+  googleclouddebugger.enable(
+    breakpoint_enable_canary=False
+  )
+except ImportError:
+  pass
+
 @firestore.transactional
 def get_session_data(transaction, session_id):
     doc_ref = sessions.document(document_id=session_id)
