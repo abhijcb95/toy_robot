@@ -42,10 +42,11 @@ def get_session_data(transaction, session_id):
         session = doc.to_dict()
     else:
         session = {
-            'views': 0
+            "x": None,
+            "y": None,
+            "direction": None
         }
-
-    session['views'] += 1   # This counts as a view
+        
     transaction.set(doc_ref, session)
 
     session['session_id'] = session_id
@@ -54,11 +55,12 @@ def get_session_data(transaction, session_id):
 
 @app.route('/', methods=['GET'])
 def home():
-    template = render_template("index.html")
+    
 
     transaction = db.transaction()
     session = get_session_data(transaction, request.cookies.get('session_id'))
 
+    template = render_template("index.html", session_id=session["session_id"])
     resp = make_response(template)
     resp.set_cookie('session_id', session['session_id'], httponly=True)
     return resp

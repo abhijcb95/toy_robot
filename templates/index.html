@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Toy Robot V1.6</title>
+        <title>Toy Robot V1.7</title>
 
         
     </head>
     <body>
-
+        <p>Session id: }</p><p id="session_id">{{session_id}</p>
         <p id="response"></p><br><br>
 
         <input id="cli" type="text" name = "command line" placeholder="Input commands here. Enter to send command.">
@@ -14,7 +14,8 @@
         <script>
             function send_cli(){
                 let commands = document.querySelector("#cli").value;
-                console.log("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + encodeURIComponent(commands));
+                let session_id = document.querySelector("#session_id").value
+                console.log("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands));
                 fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + encodeURIComponent(commands), {method:"GET", mode:"no-cors"})
                 .then(response=>response.json())
                 .then(data => {
