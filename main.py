@@ -41,7 +41,7 @@ def set_session_data(transaction, session_id, new_robot_data):
 
 
 @app.route("/api/cli/<api_uri>", methods=["GET"])
-def cli_commands(api_uri=None):
+def cli_commands(api_uri):
     
     transaction = db.transaction()
 
