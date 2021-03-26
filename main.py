@@ -48,11 +48,11 @@ def cli_commands(api_uri):
     failure = False
 
 
-    command = api_uri.split("%20")
+    command = api_uri.split(" ")
     session_id = command[0]
     command = command[1:]
     try:
-        command[1] = command[1].split("%2C")
+        command[1] = command[1].split(",")
     except: # no second argument, not needed for some actions
         pass
 
