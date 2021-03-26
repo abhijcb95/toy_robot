@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example</title>
+        <title>Toy Robot V1.6</title>
 
-        <script>
-            function send_cli(){
-                console.log("")
-            }
-        </script>
+        
     </head>
     <body>
-        <p>This is an example of a simple HTML page with one paragraph. v1.5</p><br><br>
-        <form>
-            <input id="cli" type="text" name = "command line" placeholder="Input commands here. Enter to send command.">
-        </form>
+
+        <p id="response"></p><br><br>
+
+        <input id="cli" type="text" name = "command line" placeholder="Input commands here. Enter to send command.">
+        <button id="myBtn" onclick="send_cli()">Send</button>
+        <script>
+            function send_cli(){
+                let commands = document.querySelector("#cli").value;
+                console.log("http://127.0.0.1:3000/api/"+commands);
+                fetch("http://127.0.0.1:3000/api/" + encodeURIComponent(commands))
+                .then(response=>response.json())
+                .then(data => {
+                    document.querySelector("#response").innerHTML=data.message;
+                });
+            }
+
+            var input = document.getElementById("cli");
+            input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("myBtn").click();
+            }
+            });
+        </script>
+        
         <br><br>
         <form>
             <input id="file_upload" type="file">
