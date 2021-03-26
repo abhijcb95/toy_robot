@@ -15,7 +15,7 @@
             function send_cli(){
                 let commands = document.querySelector("#cli").value;
                 console.log("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/"+commands);
-                fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + encodeURIComponent(commands), mode:"no-cors")
+                fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + encodeURIComponent(commands), mode="no-cors")
                 .then(response=>response.json())
                 .then(data => {
                     document.querySelector("#response").innerHTML=data.message;
