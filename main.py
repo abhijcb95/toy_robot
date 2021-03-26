@@ -47,23 +47,16 @@ def cli_commands(api_uri=None):
 
     failure = False
 
+
+    command = api_uri.split("%20")
+    session_id = command[0]
+    command = command[1:]
     try:
-        command = api_uri.split("%20")
-        session_id = command[0]
-        command = command[1:]
-        try:
-            command[1] = command[1].split("%2C")
-        except: # no second argument, not needed for some actions
-            pass
-        
-    except: # splitting failed
-        failure = True
+        command[1] = command[1].split("%2C")
+    except: # no second argument, not needed for some actions
+        pass
 
-    if not failure:
-        new_robot = get_session_data(transaction, session_id)
-
-    else:
-        new_robot = False
+    new_robot = get_session_data(transaction, session_id)
     
     new_robot, failure, report = actions(command, new_robot)    #attempts to execute commands, failure returns false if valid command
 

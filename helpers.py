@@ -69,7 +69,7 @@ def actions(commands, old_robot):
         report = ",".join((str(old_robot.x), str(old_robot.y), direction.upper()))
     
     elif commands[0] == "```" and len(commands) == 1:
-        new_robot = False
+        new_robot.x, new_robot.y, new_robot.direction = None, None, None
     
     else:
         failure = True
