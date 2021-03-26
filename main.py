@@ -40,7 +40,7 @@ def set_session_data(transaction, session_id, new_robot_data):
     transaction.set(doc_ref, new_robot_data)
 
 
-@app.route("/api/cli/<api_uri>")
+@app.route("/api/cli/<api_uri>", methods=["GET"])
 def cli_commands(api_uri=None):
     
     transaction = db.transaction()
