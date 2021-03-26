@@ -7,6 +7,31 @@ db = firestore.Client()     # requires GCLOUD_PROJECT environment variable to be
 sessions = db.collection('sessions')
 # storage_client = storage.Client()
 
+@firestore.transactional
+def get_session_data(transaction, session_id):
+    doc_ref = sessions.document(document_id=session_id)
+    doc = doc_ref.get(transaction=transaction)
+    if doc.exists:
+        new_robot_data = doc.to_dict()
+    else:
+        new_robot_data = {
+                "x" : None,
+                "y" : None,
+                "direction": None
+            }
+
+        transaction.set(doc_ref, new_robot_data)
+
+        new_robot = robot(new_robot_data["x"], new_robot_data["y"], new_robot_data["direction"])
+
+    return new_robot
+
+@firestore.transactional
+def set_session_data(transaction, session_id, new_robot_data):
+    doc_ref = sessions.document(document_id=session_id)
+    transaction.set(doc_ref, new_robot_data)
+
+
 @app.route("/api/cli/<api_uri>")
 def cli_commands(api_uri=None):
     
@@ -27,21 +52,7 @@ def cli_commands(api_uri=None):
         failure = True
 
     if not failure:
-        doc_ref = sessions.document(document_id=session_id)
-        doc = doc_ref.get(transaction=transaction)   #take note of collection name
-        if doc.exists:  # get data from NoSQL db (firestore)
-            new_robot_data = doc.get().to_dict()
-
-        else:   # new session giving command
-            new_robot_data = {
-                "x" : None,
-                "y" : None,
-                "direction": None
-            }
-
-            transaction.set(doc_ref,new_robot_data)    # init session document in firestore
-            
-        new_robot = robot(new_robot_data["x"], new_robot_data["y"], new_robot_data["direction"])
+        get_session_data(transaction, session_id)
 
     else:
         new_robot = False
@@ -64,7 +75,7 @@ def cli_commands(api_uri=None):
                 "direction" : new_robot.direction
             }
 
-            transaction.set(doc_ref, new_robot_data)    #set updated state into NoSQL db
+            set_session_data(transaction, session_id, new_robot_data)    #set updated state into NoSQL db
 
             return jsonify({"message": "Command sent!"})
 
