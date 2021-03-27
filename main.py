@@ -61,12 +61,12 @@ def cli_commands(api_uri):
     new_robot, failure, report = actions(command, new_robot)    #attempts to execute commands, failure returns false if valid command
 
     if failure:
-        return jsonify({"message": "Invalid command"})
+        return "Invalid command"
         
     else:
 
         if report:
-            return jsonify({"message": report})
+            return report
         
         else:
 
@@ -78,7 +78,7 @@ def cli_commands(api_uri):
 
             set_session_data(transaction, session_id, new_robot_data)    #set updated state into NoSQL db
 
-            return jsonify({"message": "Command sent!"})
+            return "Command sent!"
 
     
 
