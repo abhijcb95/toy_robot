@@ -19,6 +19,7 @@
                 .then(response => {
                     response.json().then(data => {                   
                     document.getElementById("response").innerHTML=data.message;
+                    document.querySelector("#cli").value = "";
                     });
                 });
             }
