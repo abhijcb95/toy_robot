@@ -37,11 +37,16 @@
         <button id="upload" onclick="file_upload()">Send</button>
         
         <script>
-            document.getElementById("file_upload").addEventListener("change",function(){
+            document.getElementById("file_upload").addEventListener("change", function(){
                 document.getElementById("upload_status").innerHTML="Reading file ...";
                 var reader=new FileReader();
-                reader.readasText(this.files[0]);
-                var package = reader.result;
+                reader.onload = function(){
+                    console.log(reader.result);
+                    var package = reader.result;
+                }
+
+                reader.readAsText(this.files[0]);
+                
                 document.getElementById("upload_status").innerHTML="File reading complete. Send commands to execute.";
             })
 
