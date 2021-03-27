@@ -36,7 +36,7 @@ def process_request():
             message["report"] = message["report"] + "\nReport " + str(report_count) + report
             report_count += 1
 
-        return respond(message)
+    return respond(message)
 
 if __name__ == "__main__":
     app.run(port=8080, debug=True)
