@@ -1,5 +1,5 @@
 from helpers import robot, actions
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from google.cloud import firestore #, storage
 
 app = Flask(__name__)
@@ -39,6 +39,9 @@ def set_session_data(transaction, session_id, new_robot_data):
     doc_ref = sessions.document(document_id=session_id)
     transaction.set(doc_ref, new_robot_data)
 
+@app.route("/", methods=["GET"])
+def home():
+    return "api service"
 
 @app.route("/api/cli/<api_uri>", methods=["GET"])
 def cli_commands(api_uri):
@@ -61,12 +64,12 @@ def cli_commands(api_uri):
     new_robot, failure, report = actions(command, new_robot)    #attempts to execute commands, failure returns false if valid command
 
     if failure:
-        return "Invalid command"
+        return jsonify([{"message": "Invalid Command!"}])
         
     else:
 
         if report:
-            return report
+            return jsonify([{"message": report}])
         
         else:
 
@@ -78,7 +81,7 @@ def cli_commands(api_uri):
 
             set_session_data(transaction, session_id, new_robot_data)    #set updated state into NoSQL db
 
-            return "Command sent!"
+            return jsonify([{"message": "Command sent!"}])
 
     
 
