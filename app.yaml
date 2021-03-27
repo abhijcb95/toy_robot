@@ -1,8 +1,7 @@
 runtime: python39
 entrypoint: gunicorn -b :8080 main:app
 service: cli
-handlers: 
+handlers:
 - url: /api/cli/(.*)
   http_headers:
-    Access-Control-Allow-Origin: https://toy-robot-308706.ue.r.appspot.com/
-  script: auto
+    Access-Control-Allow-Origin: https://toy-robot-308706.ue.r.appspot.com
