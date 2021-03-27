@@ -72,5 +72,8 @@ def actions(commands, new_robot):
     
     elif commands[0] == "```" and len(commands) == 1:
         new_robot.x, new_robot.y, new_robot.direction = None, None, None
+    
+    else: 
+        failure = True
 
     return new_robot, failure, report
