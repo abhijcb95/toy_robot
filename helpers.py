@@ -31,10 +31,10 @@ class robot:
         if new_y <= y_size and new_y >= 0:
             self.y = new_y
 
-def actions(commands, old_robot):
+def actions(commands, new_robot):
     
     length = len(commands)
-    new_robot = old_robot
+
     failure = False
     report = False
 
@@ -58,17 +58,17 @@ def actions(commands, old_robot):
             failure = True
 
     elif commands[0].upper() == "MOVE" and len(commands) == 1:
-        new_robot = old_robot.move()
+        new_robot.move()
 
     elif commands[0].upper() == "RIGHT" and len(commands) == 1:
-        new_robot = old_robot.rotate(1)
+        new_robot.rotate(1)
 
     elif commands[0].upper() == "LEFT" and len(commands) == 1:
-        new_robot = old_robot.rotate(-1)
+        new_robot.rotate(-1)
 
     elif commands[0].upper() == "REPORT" and len(commands) == 1:   #sends report to stdout & a file named with the session user
-        direction = list(facing_direction.keys())[old_robot.direction - 1]
-        report = ",".join((str(old_robot.x), str(old_robot.y), direction.upper()))
+        direction = list(facing_direction.keys())[new_robot.direction - 1]
+        report = ",".join((str(new_robot.x), str(new_robot.y), direction.upper()))
     
     elif commands[0] == "```" and len(commands) == 1:
         new_robot.x, new_robot.y, new_robot.direction = None, None, None
