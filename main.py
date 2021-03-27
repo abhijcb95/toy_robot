@@ -33,7 +33,7 @@ def process_request():
         new_robot, report = actions(command, new_robot)    #attempts to execute commands, failure returns false if valid command
 
         if report:
-            message["report"] = message["report"] + "\nReport " + str(report_count) + report
+            message["report"] = message["report"] + "\r\nReport " + str(report_count) + report
             report_count += 1
 
     return respond(message)
