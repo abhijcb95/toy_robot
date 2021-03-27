@@ -15,7 +15,7 @@
                 let commands = document.querySelector("#cli").value;
                 let session_id = "{{ session_id }}";
                 console.log("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands));
-                await fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"no-cors"})
+                await fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"cors"})
                 .then(response => {
                     console.log(response)
                     response.json().then(data => {
