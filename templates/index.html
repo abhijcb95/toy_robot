@@ -45,11 +45,10 @@
                 document.getElementById("upload_status").innerHTML="File reading complete. Send commands to execute.";
             })
 
-            async function file_upload(url = '', data = package) {
-                console.log(url);
+            async function file_upload(data = package) {
                 console.log(data);
                 console.log(JSON.stringify(data))
-                const response = await fetch(url, {
+                const response = await fetch("toy-robot-308706.ue.r.appspot.com/api/file_upload", {
                     method: 'POST',
                     mode: 'cors',
                     cache: 'no-cache',
