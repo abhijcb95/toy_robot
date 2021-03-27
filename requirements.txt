@@ -1,4 +1,5 @@
 Flask==1.1.2
+Flask-Cors==3.0.10
 gunicorn==20.0.4
 google-cloud-firestore==2.0.2
 google-python-cloud-debugger
