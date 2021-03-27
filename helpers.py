@@ -19,10 +19,10 @@ class robot:
             
     def move(self):
         movement = {
-            1 : [1,0],
-            2 : [0,1],
-            3 : [-1,0],
-            4 : [0,-1]
+            1 : [0,1],
+            2 : [1,0],
+            3 : [0,-1],
+            4 : [-1,0]
         }
         
         new_x = self.x + movement[self.direction][0]
