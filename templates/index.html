@@ -16,8 +16,9 @@
                 let session_id = "{{ session_id }}";
                 console.log("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands));
                 fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"no-cors"})
-                .then(response=>response.text())
+                .then(response => {response.text()})
                 .then(text => {
+                    console.log(text);                    
                     document.getElementById("response").innerHTML=text;
                 })
                 .catch(console.error);
