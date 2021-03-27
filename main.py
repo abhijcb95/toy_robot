@@ -15,7 +15,7 @@ except ImportError:
 def process_request():
     
     commands = request.json.split("\n")
-    new_robot = False
+    new_robot = robot(None,None,None)
     message = {
         "report": ""
     }    
