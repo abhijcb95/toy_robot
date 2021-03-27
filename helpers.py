@@ -33,6 +33,7 @@ class robot:
 
 def actions(commands, old_robot):
     
+    length = len(commands)
     new_robot = old_robot
     failure = False
     report = False
