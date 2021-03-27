@@ -79,7 +79,7 @@ def actions(commands, new_robot):
     elif commands[0].upper() == "REPORT" and len(commands) == 1:   #sends report to stdout & a file named with the session user
         try:
             direction = list(facing_direction.keys())[new_robot.direction - 1]
-            report = ":" + ",".join((str(new_robot.x), str(new_robot.y), direction.upper()))
+            report = ": " + ",".join((str(new_robot.x), str(new_robot.y), direction.upper()))
         except:
             pass
         

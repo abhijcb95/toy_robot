@@ -16,9 +16,7 @@ def process_request():
     
     commands = request.json.split("\n")
     new_robot = robot(None,None,None)
-    message = {
-        "report": ""
-    }    
+    message = ""
     report_count = 1
 
     for lines in commands:
@@ -33,7 +31,7 @@ def process_request():
         new_robot, report = actions(command, new_robot)    #attempts to execute commands, failure returns false if valid command
 
         if report:
-            message["report"] = message["report"] + "\r\nReport " + str(report_count) + report
+            message = message + "\r\nReport" + str(report_count) + report
             report_count += 1
 
     return respond(message)
