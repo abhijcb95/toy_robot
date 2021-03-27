@@ -9,7 +9,7 @@ class robot:
     
     def rotate(self, change):
         new_direction = self.direction + change
-        if new_direction == -1:
+        if new_direction == -0:
             new_direction = 4
         elif new_direction == 5:
             new_direction = 1
