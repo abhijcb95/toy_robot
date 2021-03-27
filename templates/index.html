@@ -18,9 +18,7 @@
                 fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"no-cors"})
                 .then(response=>response.text())
                 .then(text => {
-                    console.log(text);
-                    document.querySelector("#response").value=text;
-                    document.querySelector("#response").innerHTML=text;
+                    document.getElementById("response").innerHTML=text;
                 })
                 .catch(console.error);
             }
