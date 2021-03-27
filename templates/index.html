@@ -15,14 +15,10 @@
                 let commands = document.querySelector("#cli").value;
                 let session_id = "{{ session_id }}";
                 console.log("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands));
-                fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"no-cors"})
-                .then(response=>response.text())
-                .then(text => {
-                    console.log(text);
-                    document.querySelector("#response").value=text;
-                    document.querySelector("#response").innerHTML=text;
-                })
-                .catch(console.error);
+                const response = await fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"no-cors"});
+                const text = await response.text();
+                console.log(text);
+                document.querySelector("#response").innerHTML=text;
             }
 
             var input = document.getElementById("cli");
