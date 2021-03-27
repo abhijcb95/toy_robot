@@ -32,10 +32,8 @@ class robot:
             self.y = new_y
 
 def actions(commands, new_robot):
-    
-    length = len(commands)
 
-    failure = False
+    failure = True
     report = False
 
     facing_direction = {
@@ -55,25 +53,41 @@ def actions(commands, new_robot):
                 new_robot = robot(commands[1][0],commands[1][1],facing_direction[commands[1][2].upper()])   # initializes robot
 
         except:
-            failure = True
+            pass
 
     elif commands[0].upper() == "MOVE" and len(commands) == 1:
-        new_robot.move()
+        try:
+            new_robot.move()
+            failure = False
+        except:
+            pass
 
     elif commands[0].upper() == "RIGHT" and len(commands) == 1:
-        new_robot.rotate(1)
+        try:
+            new_robot.rotate(1)
+            failure = False
+        except:
+            pass
+        
 
     elif commands[0].upper() == "LEFT" and len(commands) == 1:
-        new_robot.rotate(-1)
+        try:
+            new_robot.rotate(-1)
+            failure = False
+        except:
+            pass
 
     elif commands[0].upper() == "REPORT" and len(commands) == 1:   #sends report to stdout & a file named with the session user
-        direction = list(facing_direction.keys())[new_robot.direction - 1]
-        report = ",".join((str(new_robot.x), str(new_robot.y), direction.upper()))
+        try:
+            direction = list(facing_direction.keys())[new_robot.direction - 1]
+            report = ",".join((str(new_robot.x), str(new_robot.y), direction.upper()))
+            failure = False
+        except:
+            pass
+        
     
     elif commands[0] == "```" and len(commands) == 1:
         new_robot.x, new_robot.y, new_robot.direction = None, None, None
-    
-    else: 
-        failure = True
+        failure = False
 
     return new_robot, failure, report
