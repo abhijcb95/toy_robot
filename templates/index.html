@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Toy Robot V2.1</title>
+        <title>Toy Robot V2.2</title>
 
         
     </head>
@@ -63,8 +63,8 @@
                 
                 response.json() // response from api
                 .then(data => {
-                    // do something with data
                     console.log(data);
+                    document.getElementById("response").innerHTML=data.message;
                 });
                 }
         </script>
