@@ -13,7 +13,7 @@ except ImportError:
 
 @app.route("/api/file_upload/", methods=["POST"])
 def process_request():
-
+    
     commands = request.json.split("\n")
     new_robot = False
     message = {
@@ -22,7 +22,7 @@ def process_request():
     report_count = 1
 
     for lines in commands:
-
+        lines = lines.replace("\r", "")
         command = lines.split(" ")
 
         try:
