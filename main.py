@@ -19,8 +19,9 @@ from uuid import uuid4
 
 from flask import Flask, make_response, request, jsonify, request, render_template
 from google.cloud import firestore
+import os
 
-
+api_key = os.environ.get("API_KEY")
 app = Flask(__name__)
 db = firestore.Client()
 sessions = db.collection('sessions')
@@ -60,7 +61,7 @@ def home():
     transaction = db.transaction()
     session = get_session_data(transaction, request.cookies.get('session_id'))
 
-    template = render_template("index.html", session_id = session["session_id"])
+    template = render_template("index.html", session_id = session["session_id"], api_key=api_key)
     resp = make_response(template)
     resp.set_cookie('session_id', session['session_id'], httponly=True)
     return resp
