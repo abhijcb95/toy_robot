@@ -3,18 +3,9 @@ from flask import Flask, jsonify, request
 from google.cloud import firestore #, storage
 
 app = Flask(__name__)
-CORS(app)
 db = firestore.Client()     # requires GCLOUD_PROJECT environment variable to be set
 sessions = db.collection('sessions')
 # storage_client = storage.Client()
-
-try:
-  import googleclouddebugger
-  googleclouddebugger.enable(
-    breakpoint_enable_canary=False
-  )
-except ImportError:
-  pass
 
 @firestore.transactional
 def get_session_data(transaction, session_id):
