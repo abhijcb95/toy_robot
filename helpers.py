@@ -1,3 +1,5 @@
+from flask import jsonify
+
 x_size = 5 - 1  # starts count from 0
 y_size = 5 - 1  # starts count from 0
 
@@ -91,3 +93,8 @@ def actions(commands, new_robot):
         failure = False
 
     return new_robot, failure, report
+
+def respond(messsage):
+    response = jsonify(messsage)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response

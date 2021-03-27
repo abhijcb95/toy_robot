@@ -1,6 +1,5 @@
-from helpers import robot, actions
+from helpers import robot, actions, respond
 from flask import Flask, jsonify, request
-from flask_cors import CORS
 from google.cloud import firestore #, storage
 
 app = Flask(__name__)
@@ -42,7 +41,6 @@ def set_session_data(transaction, session_id, new_robot_data):
     transaction.set(doc_ref, new_robot_data)
 
 @app.route("/api/cli/<api_uri>", methods=["GET"])
-@cross_origin()
 def cli_commands(api_uri):
     
     transaction = db.transaction()
@@ -63,12 +61,12 @@ def cli_commands(api_uri):
     new_robot, failure, report = actions(command, new_robot)    #attempts to execute commands, failure returns false if valid command
 
     if failure:
-        return jsonify(message="Invalid Command!")
+        message = {"message": "Invalid Command!"}
         
     else:
 
         if report:
-            return jsonify(message=report)
+            message = {"message": report}
         
         else:
 
@@ -80,7 +78,9 @@ def cli_commands(api_uri):
 
             set_session_data(transaction, session_id, new_robot_data)    #set updated state into NoSQL db
 
-            return jsonify(message="Command sent!")
+            message = {"message": "Command sent!"}
+
+    return respond(message)
 
     
 
