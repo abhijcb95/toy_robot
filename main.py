@@ -1,6 +1,8 @@
 from helpers import robot, actions, respond
 from flask import Flask, jsonify, request
+import os
 
+api_key = os.environ.get("API_KEY")
 app = Flask(__name__)
 
 try:
@@ -11,7 +13,7 @@ try:
 except ImportError:
   pass
 
-@app.route("/api/file_upload/", methods=["POST"])
+@app.route(f"/api/file_upload/{api_key}/", methods=["POST"])
 def process_request():
     
     commands = request.json.split("\n")
