@@ -53,6 +53,8 @@ def actions(commands, new_robot):
             if commands[1][0] >= 0 and commands[1][0] <= x_size and commands[1][1] >= 0 and commands[1][1] <= y_size \
             and commands[1][2].upper() in list(facing_direction.keys()):
                 new_robot = robot(commands[1][0],commands[1][1],facing_direction[commands[1][2].upper()])   # initializes robot
+                
+            failure = False
 
         except:
             pass

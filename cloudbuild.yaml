@@ -1,4 +1,4 @@
 steps:
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy", "--version", "v1-4"]
+  args: ["app", "deploy", "--version", "v2-1"]
 timeout: "1600s"
