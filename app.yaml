@@ -3,6 +3,6 @@ entrypoint: gunicorn -b :8080 main:app
 service: cli
 handlers: 
 - url: /api/cli/(.*)
-  script: auto
   http_headers:
     Access-Control-Allow-Origin: https://toy-robot-308706.ue.r.appspot.com/
+  script: auto
