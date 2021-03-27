@@ -1,9 +1,11 @@
 from helpers import robot, actions
 from flask import Flask, jsonify, request
+from flask_cors import flask_cors
 import json
 from google.cloud import firestore #, storage
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/cli*": {"origins": "*toy-robot-308706.ue.r.appspot.com/"}})
 db = firestore.Client()     # requires GCLOUD_PROJECT environment variable to be set
 sessions = db.collection('sessions')
 # storage_client = storage.Client()
@@ -39,10 +41,6 @@ def get_session_data(transaction, session_id):
 def set_session_data(transaction, session_id, new_robot_data):
     doc_ref = sessions.document(document_id=session_id)
     transaction.set(doc_ref, new_robot_data)
-
-@app.route("/", methods=["GET"])
-def home():
-    return "api service"
 
 @app.route("/api/cli/<api_uri>", methods=["GET"])
 def cli_commands(api_uri):
