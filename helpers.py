@@ -98,5 +98,5 @@ def actions(commands, new_robot):
 
 def respond(messsage):
     response = jsonify(messsage)
-    response.headers.add('Access-Control-Allow-Origin', 'https://toy-robot-308706.ue.r.appspot.com/')
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
