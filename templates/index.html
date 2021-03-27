@@ -41,7 +41,7 @@
                 document.getElementById("upload_status").innerHTML="Reading file ...";
                 var reader=new FileReader();
                 reader.onload = function(){
-                    console.log(reader.result);
+                    // console.log(reader.result);
                     package = reader.result;    //global variable
                 }
 
@@ -51,8 +51,8 @@
             })
 
             async function file_upload(data = package) {
-                console.log(data);
-                console.log(JSON.stringify(data))
+                // console.log(data);
+                // console.log(JSON.stringify(data))
                 const response = await fetch("https://toy-robot-308706.ue.r.appspot.com/api/file_upload/", {
                     method: 'POST',
                     mode: 'cors',
@@ -63,7 +63,7 @@
                 
                 response.json() // response from api
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     document.getElementById("response").innerHTML=data;
                 });
                 }
