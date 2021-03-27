@@ -42,11 +42,11 @@
                 var reader=new FileReader();
                 reader.onload = function(){
                     console.log(reader.result);
-                    var package = reader.result;
+                    package = reader.result;    //global variable
                 }
 
                 reader.readAsText(this.files[0]);
-                
+
                 document.getElementById("upload_status").innerHTML="File reading complete. Send commands to execute.";
             })
 
