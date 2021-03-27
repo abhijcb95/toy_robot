@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Toy Robot V1.7</title>
+        <title>Toy Robot V2.1</title>
 
         
     </head>
@@ -14,12 +14,9 @@
             async function send_cli(){
                 let commands = document.querySelector("#cli").value;
                 let session_id = "{{ session_id }}";
-                console.log("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands));
                 await fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"cors"})
                 .then(response => {
-                    console.log(response)
-                    response.json().then(data => {
-                    console.log(data);                    
+                    response.json().then(data => {                   
                     document.getElementById("response").innerHTML=data.message;
                     });
                 });
@@ -35,8 +32,38 @@
         </script>
         
         <br><br>
-        <form>
-            <input id="file_upload" type="file">
-        </form>
+      
+        <input id="file_upload" type="file"> <p id=upload_status></p>
+        <button id="upload" onclick="file_upload()">Send</button>
+        
+        <script>
+            document.getElementById("file_upload").addEventListener("change",function(){
+                document.getElementById("upload_status").innerHTML="Reading file ...";
+                var reader=new FileReader();
+                reader.readasText(this.files[0]);
+                var package = reader.result;
+                document.getElementById("upload_status").innerHTML="File reading complete. Send commands to execute.";
+            })
+
+            async function file_upload(url = '', data = package) {
+                console.log(url);
+                console.log(data);
+                console.log(JSON.stringify(data))
+                const response = await fetch(url, {
+                    method: 'POST',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                response.json() // response from api
+                .then(data => {
+                    // do something with data
+                    console.log(data);
+                });
+                }
+        </script>
+
     </body>
 </html>
