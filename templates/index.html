@@ -28,8 +28,10 @@
                     let commands = document.querySelector("#cli").value;
                     document.getElementById("cli_response").innerHTML="Sending ...";
                     let session_id = "{{ session_id }}";
-                    let api_key = "{{api_key}}"
-                    await fetch("https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands), {method:"GET", mode:"cors"})
+                    let api_key = "{{api_key}}";
+                    var url = "https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands);
+                    console.log(url);
+                    await fetch(url, {method:"GET", mode:"cors"})
                     .then(response => {
                         response.json().then(data => {                   
                         document.getElementById("cli_response").innerHTML=data.message;
