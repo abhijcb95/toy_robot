@@ -5,7 +5,7 @@ import os
 
 api_key = os.environ.get("API_KEY")
 app = Flask(__name__)
-db = firestore.Client()     # requires GCLOUD_PROJECT environment variable to be set
+db = firestore.Client()
 sessions = db.collection('sessions')
 
 try:
