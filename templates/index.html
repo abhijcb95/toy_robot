@@ -6,90 +6,108 @@
             .inline-block-child {display: inline-block;}
             
             .box {
-                  width: 75%;
-                    border: 5px solid black;
-                    padding: 50px;
-                    margin: 20px;
-                    height: auto;
+                  width: 55%;
+                    border: 2px solid black;
+                    padding: 20px;
+                    margin: 10px;
+                    height: autopx;
             }            
         </style>        
         
     </head>
     <body>
+        <div>
+            <div id="cli_box" class="inline-block-child box">
+                <h3 style="font-weight:bold">Command Line</h1><br>
+                <p id="cli_response" style="font-weight:bold" ></p><br>
 
-        <div id="cli_box" class="inline-block-child box">
-            <p id="cli_response" style="font-weight:bold" ></p><br>
-
-            <p>Key command here:</p>
-            <input id="cli" type="text" class="inline-block-child" style="width: auto;" placeholder="Input commands here. Enter to send command.">
-            <button id="myBtn" class="inline-block-child" onclick="send_cli()">Send</button>
-            <script>
-                async function send_cli(){
-                    let commands = document.querySelector("#cli").value;
-                    document.getElementById("cli_response").innerHTML="Sending ...";
-                    let session_id = "{{ session_id }}";
-                    let api_key = "{{api_key}}";
-                    var url = "https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands);
-                    console.log(url);
-                    await fetch(url, {method:"GET", mode:"cors"})
-                    .then(response => {
-                        response.json().then(data => {                   
-                        document.getElementById("cli_response").innerHTML=data.message;
-                        document.querySelector("#cli").value = "";
+                <p>Key command here:</p>
+                <input id="cli" type="text" class="inline-block-child" style="width: auto;" placeholder="Input commands here. Enter to send command.">
+                <button id="myBtn" class="inline-block-child" onclick="send_cli()">Send</button>
+                <script>
+                    async function send_cli(){
+                        let commands = document.querySelector("#cli").value;
+                        document.getElementById("cli_response").innerHTML="Sending ...";
+                        let session_id = "{{ session_id }}";
+                        let api_key = "{{api_key}}";
+                        var url = "https://cli-dot-toy-robot-308706.ue.r.appspot.com/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands);
+                        console.log(url);
+                        await fetch(url, {method:"GET", mode:"cors"})
+                        .then(response => {
+                            response.json().then(data => {                   
+                            document.getElementById("cli_response").innerHTML=data.message;
+                            document.querySelector("#cli").value = "";
+                            });
                         });
+                    }
+
+                    var input = document.getElementById("cli");
+                    input.addEventListener("keyup", function(event) {
+                    if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("myBtn").click();
+                    }
                     });
-                }
+                </script>
+                <h4>Instructions:</h4>
+                <p>Robot that moves on a 5x5 grid only after being placed.</p>
+                <p>Type in commands: PLACE 1,1,NORTH, MOVE, LEFT, RIGHT, REPORT, ```(takes robot off the table).</p>
+                <p>Commands are not caps-sensitive, but invalid commands will be rejected.</p>
+                <p>The robot cannot be moved off the table of a 5x5 grid and will stay in its location if given such a command.</p>
+                <p>This robot uses cookies to store session data. You can carry on where you left off if within the time period of a session.</p>
+            </div>
 
-                var input = document.getElementById("cli");
-                input.addEventListener("keyup", function(event) {
-                if (event.keyCode === 13) {
-                event.preventDefault();
-                document.getElementById("myBtn").click();
-                }
-                });
-            </script>
-        </div>
-
-        <div id="file_upload_box" class="inline-block-child box">
-            <p id="file_upload_response" style="font-weight:bold" ></p><br>
-        
-            <input id="file_upload" class="inline-block-child" type="file"> 
-            <button id="upload" class="inline-block-child" onclick="file_upload()">Send</button>
-            <p id=upload_status style="font-style: italic;"></p>
+            <div id="file_upload_box" class="inline-block-child box">
+                <h3 style="font-weight:bold">File Upload</h1><br>
+                <p id="file_upload_response" style="font-weight:bold" ></p><br>
             
-            <script>
-                document.getElementById("file_upload").addEventListener("change", function(){
-                    document.getElementById("upload_status").innerHTML="Reading file ...";
-                    var reader=new FileReader();
-                    reader.onload = function(){
-                        // console.log(reader.result);
-                        package = reader.result;    //global variable
-                    }
+                <input id="file_upload" class="inline-block-child" type="file"> 
+                <button id="upload" class="inline-block-child" onclick="file_upload()">Send</button>
+                <p id=upload_status style="font-style: italic;"></p>
+                
+                <script>
+                    document.getElementById("file_upload").addEventListener("change", function(){
+                        document.getElementById("upload_status").innerHTML="Reading file ...";
+                        var reader=new FileReader();
+                        reader.onload = function(){
+                            // console.log(reader.result);
+                            package = reader.result;    //global variable
+                        }
 
-                    reader.readAsText(this.files[0]);
+                        reader.readAsText(this.files[0]);
 
-                    document.getElementById("upload_status").innerHTML="File reading complete. Send to run simulation.";
-                })
+                        document.getElementById("upload_status").innerHTML="File reading complete. Send to run simulation.";
+                    })
 
-                async function file_upload(data = package) {
-                    // console.log(data);
-                    // console.log(JSON.stringify(data))
-                    let api_key = "{{api_key}}"
-                    const response = await fetch("https://toy-robot-308706.ue.r.appspot.com/api/file_upload/" + api_key + "/", {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(data)
-                    });
-                    
-                    response.json() // response from api
-                    .then(data => {
+                    async function file_upload(data = package) {
                         // console.log(data);
-                        document.getElementById("file_upload_response").innerHTML=data;
-                    });
-                    }
-            </script>
+                        // console.log(JSON.stringify(data))
+                        let api_key = "{{api_key}}"
+                        const response = await fetch("https://toy-robot-308706.ue.r.appspot.com/api/file_upload/" + api_key + "/", {
+                            method: 'POST',
+                            mode: 'cors',
+                            cache: 'no-cache',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(data)
+                        });
+                        
+                        response.json() // response from api
+                        .then(data => {
+                            // console.log(data);
+                            document.getElementById("file_upload_response").innerHTML=data;
+                        });
+                        }
+                </script>
+
+                <br>
+                <h4>Instructions:</h4>
+                <p>Robot that moves on a 5x5 grid only after being placed</p>
+                <p>Type in commands into a TEXT FILE: PLACE 1,1,NORTH, MOVE, LEFT, RIGHT, REPORT, ```(takes robot off the table).</p>
+                <p>Commands are not caps-sensitive, but invalid commands will be rejected.</p>
+                <p>Commands must be separated by a new line or \n.</p>
+                <p>The robot cannot be moved off the table of a 5x5 grid and will stay in its location if given such a command.</p>
+                <p>The response will show the output from each time a REPORT command was read. (no data will be stored)</p>
+            </div>
         </div>
         
 
