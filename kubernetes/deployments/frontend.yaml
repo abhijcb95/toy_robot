@@ -20,15 +20,7 @@ spec:
       containers:
       - name: frontend
         image: gcr.io/cloud-solutions-images/toy-robot:1.0.0
-        resources:
-          limits:
-            memory: "500Mi"
-            cpu: "100m"
         imagePullPolicy: Always
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
         command: ["sh", "-c", "gunicorn -b :8080 main:app"]
         ports:
         - name: frontend
