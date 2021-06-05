@@ -25,3 +25,6 @@ spec:
         ports:
         - name: frontend
           containerPort: 8080
+        env:
+          - name: API_KEY
+            value: "bfe81c13-713d-4f59-8b7c-2e234494e0cd"
