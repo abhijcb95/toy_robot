@@ -21,10 +21,7 @@ spec:
       - name: frontend
         image: gcr.io/cloud-solutions-images/toy-robot:1.0.0
         imagePullPolicy: Always
-        command: ["bash", "-c", "gunicorn -b :8080 main:app"]
+        command: ["bash", "-c", "flask run"]
         ports:
         - name: frontend
           containerPort: 8080
-        env:
-          - name: API_KEY
-            value: "bfe81c13-713d-4f59-8b7c-2e234494e0cd"
