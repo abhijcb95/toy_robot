@@ -21,7 +21,7 @@ spec:
       - name: frontend
         image: gcr.io/cloud-solutions-images/toy-robot:1.0.0
         imagePullPolicy: Always
-        command: ["bash", "-c", "python3 ~/toy_robot/main.py"]
+
         ports:
         - name: frontend
           containerPort: 8080
