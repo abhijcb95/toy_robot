@@ -62,6 +62,6 @@ steps:
           sed -i 's|gcr.io/cloud-solutions-images/toy-robot:.*|gcr.io/$PROJECT_ID/toy-robot:${BRANCH_NAME}-${SHORT_SHA}|' ./kubernetes/deployments/*.yaml
           
           kubectl get ns production || kubectl create ns production
-          kubectl apply --namespace production --recursive -f kubernetes/deployments/dev
+          kubectl apply --namespace production --recursive -f kubernetes/deployments
           kubectl apply --namespace production --recursive -f kubernetes/services
 
