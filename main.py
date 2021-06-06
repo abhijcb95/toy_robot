@@ -61,7 +61,7 @@ def process_request():
     commands = request.json()
     
     url = f"http://toy-robot-file-upload-svc.production.svc.cluster.local/api/cli/{api_key}"
-    file_upload_response = requests.post(url,json=commands)
+    file_upload_response = requests.post(url,data=commands)
 
     return file_upload_response.text
 
