@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: toy-robot-file-upload
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: toy-robot
+      role: file-upload
+      env: production
+  template:
+    metadata:
+      name: file-upload
+      labels:
+        app: toy-robot
+        role: file-upload
+        env: production
+    spec:
+      containers:
+      - name: file-upload
+        image: gcr.io/cloud-solutions-images/toy-robot:1.0.0
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: "/etc/secrets"
+            name: secrets
+            readOnly: true
+        command: ["sh", "-c", "export API_KEY=$(cat /etc/secrets/API_KEY)\ngunicorn -b :8080 main:app"]
+        ports:
+        - name: file-upload
+          containerPort: 8080
+      volumes:
+        - name: secrets
+          secret:
+            secretName: toy-robot-secrets
