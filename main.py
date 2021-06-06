@@ -8,14 +8,6 @@ app = Flask(__name__)
 db = firestore.Client()
 sessions = db.collection('sessions')
 
-try:
-  import googleclouddebugger
-  googleclouddebugger.enable(
-    breakpoint_enable_canary=False
-  )
-except ImportError:
-  pass
-
 @firestore.transactional
 def get_session_data(transaction, session_id):
     doc_ref = sessions.document(document_id=session_id)
