@@ -20,7 +20,7 @@ spec:
   type: ClusterIP
   ports:
   - name: cli-http
-    port: 3000
+    port: 80
     targetPort: 8080
     protocol: TCP
   selector:
