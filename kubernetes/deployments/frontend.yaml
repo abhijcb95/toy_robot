@@ -25,7 +25,7 @@ spec:
           - mountPath: "/etc/secrets"
             name: secrets
             readOnly: true
-        command: ["sh", "-c", "export API_KEY=$(cat /etc/secrets/API_KEY)\ncd app/\ngunicorn -b :8080 main:app"]
+        command: ["sh", "-c", "export API_KEY=$(cat /etc/secrets/API_KEY)\ngunicorn -b :8080 main:app"]
         ports:
         - name: cli
           containerPort: 8080
