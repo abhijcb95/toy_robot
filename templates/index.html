@@ -30,7 +30,7 @@
                         document.getElementById("cli_response").innerHTML="Sending ...";
                         let session_id = "{{ session_id }}";
                         let api_key = "{{api_key}}";
-                        var url = "http://toy-robot-cli-svc.production.svc.cluster.local/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands);
+                        var url = "http://10.124.8.242/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands);
                         console.log(url);
                         await fetch(url, {method:"GET", mode:"cors"})
                         .then(response => {
