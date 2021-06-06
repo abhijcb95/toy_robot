@@ -32,7 +32,7 @@
                         let api_key = "{{api_key}}";
                         var url = "/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands);
                         console.log(url);
-                        await fetch(url, {method:"GET", mode:"cors"})
+                        await fetch(url, {method:"GET"})
                         .then(response => {
                             response.json().then(data => {                   
                             document.getElementById("cli_response").innerHTML=data.message;
