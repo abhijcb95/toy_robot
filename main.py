@@ -53,7 +53,7 @@ def cli_commands(api_uri):
     url = f"http://toy-robot-cli-svc.production.svc.cluster.local/api/cli/{api_key}/{api_uri}"
     cli_response = requests.get(url)
 
-    return cli_response
+    return cli_response.text
 
 
 if __name__ == '__main__':
