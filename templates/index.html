@@ -29,8 +29,7 @@
                         let commands = document.querySelector("#cli").value;
                         document.getElementById("cli_response").innerHTML="Sending ...";
                         let session_id = "{{ session_id }}";
-                        let api_key = "{{api_key}}";
-                        var url = "/api/cli/" + api_key + "/" + session_id + "%20" + encodeURIComponent(commands);
+                        var url = "/api/cli/" + session_id + "%20" + encodeURIComponent(commands);
                         console.log(url);
                         await fetch(url, {method:"GET"})
                         .then(response => {
@@ -82,10 +81,8 @@
                     async function file_upload(data = package) {
                         // console.log(data);
                         // console.log(JSON.stringify(data))
-                        let api_key = "{{api_key}}"
-                        const response = await fetch("https://toy-robot-308706.ue.r.appspot.com/api/file_upload/" + api_key + "/", {
+                        const response = await fetch("/api/file_upload/", {
                             method: 'POST',
-                            mode: 'cors',
                             cache: 'no-cache',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify(data)

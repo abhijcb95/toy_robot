@@ -42,12 +42,12 @@ def home():
     transaction = db.transaction()
     session = get_session_data(transaction, request.cookies.get('session_id'))
 
-    template = render_template("index.html", session_id = session["session_id"], api_key=api_key)
+    template = render_template("index.html", session_id = session["session_id"])
     resp = make_response(template)
     resp.set_cookie('session_id', session['session_id'], httponly=True)
     return resp
 
-@app.route(f"/api/cli/{api_key}/<api_uri>", methods=["GET"])
+@app.route(f"/api/cli/<api_uri>", methods=["GET"])
 def cli_commands(api_uri):
 
     url = f"http://toy-robot-cli-svc.production.svc.cluster.local/api/cli/{api_key}/{api_uri}"
@@ -55,6 +55,15 @@ def cli_commands(api_uri):
 
     return cli_response.text
 
+@app.route(f"/api/file_upload/", methods=["POST"])
+def process_request():
+    
+    commands = request.json()
+    
+    url = f"http://toy-robot-file-upload-svc.production.svc.cluster.local/api/cli/{api_key}"
+    file_upload_response = requests.post(url,json=commands)
+
+    return file_upload_response.text
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
