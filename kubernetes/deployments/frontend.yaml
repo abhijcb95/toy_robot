@@ -21,10 +21,15 @@ spec:
       - name: frontend
         image: gcr.io/cloud-solutions-images/toy-robot:1.0.0
         imagePullPolicy: Always
-        command: ["sh", "-c", "cd app/\ngunicorn -b :8080 main:app"]
-        env:
-          - name: API_KEY
-            value: "bfe81c13-713d-4f59-8b7c-2e234494e0cd"
+        volumeMounts:
+          - mountPath: "/etc/secrets"
+            name: secrets
+            readOnly: true
+        command: ["sh", "-c", "export API_KEY=$(cat /etc/secrets/API_KEY)\ncd app/\ngunicorn -b :8080 main:app"]
         ports:
         - name: frontend
           containerPort: 8080
+      volumes:
+        - name: secrets
+          secret:
+            secretName: toy-robot-secrets
