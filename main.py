@@ -58,7 +58,7 @@ def cli_commands(api_uri):
 @app.route(f"/api/file_upload/", methods=["POST"])
 def process_request():
     
-    commands = request.json()
+    commands = request.json
     
     url = f"http://toy-robot-file-upload-svc.production.svc.cluster.local/api/cli/{api_key}"
     file_upload_response = requests.post(url,data=commands)
